@@ -8,5 +8,6 @@ const coursesController = new CoursesController();
 coursesRouter.post('/', coursesController.create);
 coursesRouter.get('/', coursesController.list);
 coursesRouter.put('/:id', coursesController.update);
+coursesRouter.delete('/:id', coursesController.delete);
 
 export default coursesRouter;

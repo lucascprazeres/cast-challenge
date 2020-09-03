@@ -69,4 +69,8 @@ export default class CoursesRepository {
 
     return course;
   }
+
+  public async destroy(id: string): Promise<void> {
+    await this.ormRepository.delete(id);
+  }
 }

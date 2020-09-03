@@ -1,7 +1,7 @@
 import CoursesRepository from '../repositories/CoursesRepository';
 import Course from '../database/entities/Course';
 
-export default class CreateCourseService {
+export default class DeleteCourseService {
   private coursesRepository: CoursesRepository;
 
   constructor(coursesRepository: CoursesRepository) {

@@ -13,7 +13,7 @@ interface Request {
   category: string;
 }
 
-export default class UpdatedCourseService {
+export default class UpdateCourseService {
   private coursesRepository: CoursesRepository;
 
   private categoriesRepository: CategoriesRepository;

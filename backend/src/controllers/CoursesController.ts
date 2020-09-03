@@ -4,6 +4,7 @@ import CreateCourseService from '../services/CreateCourseService';
 import SearchCoursesService from '../services/SearchCoursesService';
 import CategoriesRepository from '../repositories/CategoriesRepository';
 import UpdatedCourseService from '../services/UpdateCourseService';
+import DeleteCourseService from '../services/DeleteCoursesService';
 
 export default class CoursesController {
   public async create(request: Request, response: Response): Promise<Response> {
@@ -72,5 +73,16 @@ export default class CoursesController {
     });
 
     return response.json(updatedCourse);
+  }
+
+  public async delete(request: Request, response: Response): Promise<Response> {
+    const { id } = request.params;
+
+    const coursesRepository = new CoursesRepository();
+    const deleteCourse = new DeleteCourseService(coursesRepository);
+
+    await deleteCourse.execute(id);
+
+    return response.send();
   }
 }
