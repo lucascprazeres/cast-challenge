@@ -6,5 +6,6 @@ const coursesRouter = Router();
 const coursesController = new CoursesController();
 
 coursesRouter.post('/', coursesController.create);
+coursesRouter.get('/', coursesController.list);
 
 export default coursesRouter;

@@ -3,6 +3,7 @@ import {
   getRepository,
   LessThanOrEqual,
   MoreThanOrEqual,
+  Like,
 } from 'typeorm';
 import Course from '../database/entities/Course';
 
@@ -32,6 +33,16 @@ export default class CoursesRepository {
     await this.ormRepository.save(course);
 
     return course;
+  }
+
+  public async listAllBySearchTerm(description: string): Promise<Course[]> {
+    const courses = await this.ormRepository.find({
+      where: {
+        description: Like(`%${description}%`),
+      },
+    });
+
+    return courses;
   }
 
   public async findByPeriod({

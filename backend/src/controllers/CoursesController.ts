@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import CoursesRepository from '../repositories/CoursesRepository';
 import CreateCourseService from '../services/CreateCourseService';
+import SearchCoursesService from '../services/SearchCoursesService';
 import CategoriesRepository from '../repositories/CategoriesRepository';
 
 export default class CoursesController {
@@ -29,5 +30,16 @@ export default class CoursesController {
     });
 
     return response.json(course);
+  }
+
+  public async list(request: Request, response: Response): Promise<Response> {
+    const { search } = request.query;
+
+    const coursesRepository = new CoursesRepository();
+    const searchCourses = new SearchCoursesService(coursesRepository);
+
+    const courses = await searchCourses.execute(String(search));
+
+    return response.json(courses);
   }
 }
