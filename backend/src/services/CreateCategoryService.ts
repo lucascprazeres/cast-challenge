@@ -22,13 +22,13 @@ export default class CreateCategoryService {
 
     if (!code || !description) {
       throw new AppError(
-        "properties 'code' and 'description' are required.",
+        "Proprieddades 'code' e 'description' s'ao obrigatórias.",
         400,
       );
     }
 
     if (!Number(code)) {
-      throw new AppError("property 'code' must be an integer.", 400);
+      throw new AppError("Propriedade 'code' deve ser um número inteiro.", 400);
     }
 
     return category;

@@ -1,3 +1,4 @@
+import { isBefore, startOfDay } from 'date-fns';
 import CoursesRepository from '../repositories/CoursesRepository';
 import Course from '../database/entities/Course';
 import CategoriesRepository from '../repositories/CategoriesRepository';
@@ -41,6 +42,34 @@ export default class CreateCourseService {
 
     const parsedStartDate = new Date(from);
     const parsedEndDate = new Date(to);
+
+    const todaysFirstHour = startOfDay(Date.now());
+
+    if (isBefore(parsedStartDate, todaysFirstHour)) {
+      throw new AppError(
+        'Não é possivel agendar um curso em uma data passada.',
+        400,
+      );
+    }
+
+    if (isBefore(parsedEndDate, parsedStartDate)) {
+      throw new AppError(
+        'Data de término do curso deve ser posterior ao seu início.',
+        400,
+      );
+    }
+
+    const foundCourseOnSamePeriod = await this.coursesRepository.findByPeriod({
+      from: parsedStartDate,
+      to: parsedEndDate,
+    });
+
+    if (foundCourseOnSamePeriod) {
+      throw new AppError(
+        'Existe(m) curso(s) planejado(s) no mesmo período.',
+        400,
+      );
+    }
 
     const course = await this.coursesRepository.create({
       description,

@@ -1,4 +1,9 @@
-import { Repository, getRepository } from 'typeorm';
+import {
+  Repository,
+  getRepository,
+  LessThanOrEqual,
+  MoreThanOrEqual,
+} from 'typeorm';
 import Course from '../database/entities/Course';
 
 interface CreateCourseDTO {
@@ -7,6 +12,11 @@ interface CreateCourseDTO {
   to: Date;
   students_per_class?: number;
   category: string;
+}
+
+interface FindbyPeriodDTO {
+  from: Date;
+  to: Date;
 }
 
 export default class CoursesRepository {
@@ -20,6 +30,19 @@ export default class CoursesRepository {
     const course = await this.ormRepository.create(courseData);
 
     await this.ormRepository.save(course);
+
+    return course;
+  }
+
+  public async findByPeriod({
+    from,
+    to,
+  }: FindbyPeriodDTO): Promise<Course | undefined> {
+    const course = await this.ormRepository.findOne({
+      where: {
+        from: MoreThanOrEqual(from) && LessThanOrEqual(to),
+      },
+    });
 
     return course;
   }
