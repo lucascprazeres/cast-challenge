@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import CreateCategoryService from '../services/CreateCategoryService';
 import CategoriesRepository from '../repositories/CategoriesRepository';
+import ListCategoriesService from '../services/ListCategeoriesService';
 
 export default class CategoriesController {
   async create(request: Request, response: Response): Promise<Response> {
@@ -18,14 +19,11 @@ export default class CategoriesController {
   }
 
   async list(request: Request, response: Response): Promise<Response> {
-    return response.send();
-  }
+    const categoriesRepository = new CategoriesRepository();
+    const listCategories = new ListCategoriesService(categoriesRepository);
 
-  async update(request: Request, response: Response): Promise<Response> {
-    return response.send();
-  }
+    const categories = await listCategories.execute();
 
-  async delete(request: Request, response: Response): Promise<Response> {
-    return response.send();
+    return response.json(categories);
   }
 }

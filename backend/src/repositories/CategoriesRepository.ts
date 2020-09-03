@@ -27,4 +27,10 @@ export default class CategoriesRepository {
 
     return category;
   }
+
+  public async all(): Promise<Category[]> {
+    const categories = await this.ormRepository.find();
+
+    return categories;
+  }
 }
