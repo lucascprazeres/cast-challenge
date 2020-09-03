@@ -1,10 +1,11 @@
-import { isBefore, startOfDay, parseISO } from 'date-fns';
-import CoursesRepository from '../repositories/CoursesRepository';
+import { startOfDay, isBefore, parseISO } from 'date-fns';
 import Course from '../database/entities/Course';
-import CategoriesRepository from '../repositories/CategoriesRepository';
+import CoursesRepository from '../repositories/CoursesRepository';
 import AppError from '../errors/AppError';
+import CategoriesRepository from '../repositories/CategoriesRepository';
 
 interface Request {
+  id: string;
   description: string;
   from: string;
   to: string;
@@ -12,7 +13,7 @@ interface Request {
   category: string;
 }
 
-export default class CreateCourseService {
+export default class UpdatedCourseService {
   private coursesRepository: CoursesRepository;
 
   private categoriesRepository: CategoriesRepository;
@@ -26,6 +27,7 @@ export default class CreateCourseService {
   }
 
   public async execute({
+    id,
     description,
     from,
     to,
@@ -37,7 +39,13 @@ export default class CreateCourseService {
     );
 
     if (!courseCategory) {
-      throw new AppError('Categoria inválida.', 400);
+      throw new AppError('Invalid category.', 400);
+    }
+
+    const currentCourse = await this.coursesRepository.findById(id);
+
+    if (!currentCourse) {
+      throw new AppError('Curso não encontrado.', 400);
     }
 
     const parsedStartDate = parseISO(from);
@@ -64,21 +72,24 @@ export default class CreateCourseService {
       to: parsedEndDate,
     });
 
-    if (foundCourseOnSamePeriod) {
+    if (foundCourseOnSamePeriod && foundCourseOnSamePeriod.id !== id) {
       throw new AppError(
         'Existe(m) curso(s) planejado(s) no mesmo período.',
         400,
       );
     }
 
-    const course = await this.coursesRepository.create({
-      description,
-      from: parsedStartDate,
-      to: parsedEndDate,
-      students_per_class,
-      category_code: courseCategory.code,
-    });
+    currentCourse.description = description;
+    currentCourse.from = parseISO(from);
+    currentCourse.to = parseISO(to);
+    currentCourse.category_code = courseCategory.code;
 
-    return course;
+    if (students_per_class) {
+      currentCourse.students_per_class = students_per_class;
+    }
+
+    const updatedCourse = await this.coursesRepository.update(currentCourse);
+
+    return updatedCourse;
   }
 }

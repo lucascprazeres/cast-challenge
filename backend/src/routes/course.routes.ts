@@ -7,5 +7,6 @@ const coursesController = new CoursesController();
 
 coursesRouter.post('/', coursesController.create);
 coursesRouter.get('/', coursesController.list);
+coursesRouter.put('/:id', coursesController.update);
 
 export default coursesRouter;

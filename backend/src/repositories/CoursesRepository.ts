@@ -12,7 +12,7 @@ interface CreateCourseDTO {
   from: Date;
   to: Date;
   students_per_class?: number;
-  category: string;
+  category_code: number;
 }
 
 interface FindbyPeriodDTO {
@@ -45,6 +45,12 @@ export default class CoursesRepository {
     return courses;
   }
 
+  public async findById(id: string): Promise<Course | undefined> {
+    const course = await this.ormRepository.findOne(id);
+
+    return course;
+  }
+
   public async findByPeriod({
     from,
     to,
@@ -54,6 +60,12 @@ export default class CoursesRepository {
         from: MoreThanOrEqual(from) && LessThanOrEqual(to),
       },
     });
+
+    return course;
+  }
+
+  public async update(course: Course): Promise<Course> {
+    await this.ormRepository.save(course);
 
     return course;
   }
