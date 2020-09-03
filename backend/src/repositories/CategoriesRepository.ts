@@ -33,4 +33,14 @@ export default class CategoriesRepository {
 
     return categories;
   }
+
+  public async findByDescription(
+    description: string,
+  ): Promise<Category | undefined> {
+    const category = await this.ormRepository.findOne({
+      where: { description },
+    });
+
+    return category;
+  }
 }
