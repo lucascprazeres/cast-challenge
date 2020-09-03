@@ -1,5 +1,6 @@
 import Category from '../database/entities/Category';
 import CategoriesRepository from '../repositories/CategoriesRepository';
+import AppError from '../errors/AppError';
 
 interface Request {
   code: number;
@@ -18,6 +19,17 @@ export default class CreateCategoryService {
       code,
       description,
     });
+
+    if (!code || !description) {
+      throw new AppError(
+        "properties 'code' and 'description' are required.",
+        400,
+      );
+    }
+
+    if (!Number(code)) {
+      throw new AppError("property 'code' must be an integer.", 400);
+    }
 
     return category;
   }
