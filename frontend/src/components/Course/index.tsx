@@ -1,7 +1,7 @@
-import React from 'react';
-
+import React, { HTMLAttributes } from 'react';
 import { GoTrashcan } from 'react-icons/go';
 
+import { Link } from 'react-router-dom';
 import {
   Container,
   Description,
@@ -16,6 +16,7 @@ interface CourseProps {
   students: number | null;
   start: string;
   end: string;
+  to: string;
 }
 
 const Course: React.FC<CourseProps> = ({
@@ -23,25 +24,28 @@ const Course: React.FC<CourseProps> = ({
   students,
   start,
   end,
+  to,
 }) => {
   return (
     <Container>
-      <CourseHeader>
-        <Description>{description}</Description>
+      <Link to={to}>
+        <CourseHeader>
+          <Description>{description}</Description>
 
-        <GoTrashcan size={16} color="#e0040b" />
-      </CourseHeader>
+          <GoTrashcan size={16} color="#e0040b" />
+        </CourseHeader>
 
-      <CourseFooter>
-        <StudentNumber>
-          Alunos por turma:
-          <strong>{students || 'não informado'}</strong>
-        </StudentNumber>
+        <CourseFooter>
+          <StudentNumber>
+            Alunos por turma:
+            <strong>{students || 'não informado'}</strong>
+          </StudentNumber>
 
-        <Period>
-          {start} - {end}
-        </Period>
-      </CourseFooter>
+          <Period>
+            {start} - {end}
+          </Period>
+        </CourseFooter>
+      </Link>
     </Container>
   );
 };

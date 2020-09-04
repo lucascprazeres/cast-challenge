@@ -1,8 +1,9 @@
-import React, { useState, useEffect, useCallback, FormEvent } from 'react';
+import React, { useState, useCallback, FormEvent } from 'react';
 
 import { GiBoomerang } from 'react-icons/gi';
 
 import { GoChevronRight } from 'react-icons/go';
+import { useHistory } from 'react-router-dom';
 import {
   Container,
   Header,
@@ -16,7 +17,7 @@ import {
   CourseList,
   Content,
   LinkContainer,
-  Link,
+  LinkText,
   MainTextContainer,
 } from './styles';
 
@@ -35,6 +36,8 @@ const Dashboard: React.FC = () => {
   const [search, setSearch] = useState('');
   const [courses, setCourses] = useState<Course[]>([]);
 
+  const history = useHistory();
+
   const handleSubmit = useCallback(
     async (e: FormEvent) => {
       e.preventDefault();
@@ -52,6 +55,14 @@ const Dashboard: React.FC = () => {
     [search, setSearch, setCourses],
   );
 
+  const handleNavigateToUpdateCourse = useCallback(
+    (course_id: string) => {
+      console.log('sdishdhuh');
+      history.push('/update-course', { course_id });
+    },
+    [history],
+  );
+
   return (
     <Container>
       <Header>
@@ -64,7 +75,7 @@ const Dashboard: React.FC = () => {
         </MainTextContainer>
 
         <LinkContainer>
-          <Link href="/">cadastrar novo curso</Link>
+          <LinkText to="/create-course">cadastrar novo curso</LinkText>
           <GoChevronRight size={16} color="#4364a8" />
         </LinkContainer>
       </Header>
@@ -89,6 +100,7 @@ const Dashboard: React.FC = () => {
               students={course.students_per_class}
               start="12/09"
               end="14/09"
+              to={`update-course/${course.id}`}
             />
           ))}
         </CourseList>

@@ -8,6 +8,10 @@ export const Container = styled.li`
   border-radius: 16px;
 
   padding: 16px;
+
+  a {
+    text-decoration: none;
+  }
 `;
 
 export const Description = styled.h2`

@@ -1,6 +1,8 @@
 import styled from 'styled-components';
 import { shade } from 'polished';
 
+import { Link } from 'react-router-dom';
+
 export const Container = styled.div`
   display: flex;
   flex: 1;
@@ -115,7 +117,7 @@ export const LinkContainer = styled.nav`
   }
 `;
 
-export const Link = styled.a`
+export const LinkText = styled(Link)`
   text-decoration: none;
 
   font-size: 16px;
