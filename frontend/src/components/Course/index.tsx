@@ -8,7 +8,6 @@ import {
   CourseHeader,
   CourseFooter,
   StudentNumber,
-  Number,
   Period,
 } from './styles';
 
@@ -36,7 +35,7 @@ const Course: React.FC<CourseProps> = ({
       <CourseFooter>
         <StudentNumber>
           Alunos por turma:
-          <Number>{students || 'não informado'}</Number>
+          <strong>{students || 'não informado'}</strong>
         </StudentNumber>
 
         <Period>

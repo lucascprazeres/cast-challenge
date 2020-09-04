@@ -29,16 +29,14 @@ export const CourseFooter = styled.div`
 `;
 
 export const StudentNumber = styled.p`
-  display: flex;
-
   color: #c0c0c4;
   font-size: 15px;
   font-weight: bold;
-`;
 
-export const Number = styled.p`
-  margin-left: 4px;
-  color: #4364a8;
+  strong {
+    margin-left: 4px;
+    color: #4364a8;
+  }
 `;
 
 export const Period = styled.p`

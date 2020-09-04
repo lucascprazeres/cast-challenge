@@ -15,6 +15,14 @@ export const Content = styled.div`
 
 export const Header = styled.header`
   margin-bottom: 64px;
+
+  display: flex;
+  justify-content: space-between;
+`;
+
+export const MainTextContainer = styled.div`
+  display: flex;
+  flex-direction: column;
 `;
 
 export const TitleContainer = styled.div`
@@ -24,12 +32,12 @@ export const TitleContainer = styled.div`
 
 export const Title = styled.h1`
   margin-left: 8px;
-  font-size: 48px;
+  font-size: 40px;
   color: #3264a8;
 `;
 
 export const SubTitle = styled.h2`
-  font-size: 24px;
+  font-size: 20px;
   margin-top: 16px;
   margin-left: 16px;
   color: #e0040b;
@@ -88,4 +96,28 @@ export const CourseList = styled.ul`
   li:hover {
     transform: translateX(10px);
   }
+`;
+
+export const LinkContainer = styled.nav`
+  margin-top: 16px;
+  display: flex;
+  align-items: center;
+  transition: transform 0.4s;
+  height: 20px;
+  cursor: pointer;
+
+  svg {
+    margin-left: 4px;
+  }
+
+  &:hover {
+    transform: translateX(10px);
+  }
+`;
+
+export const Link = styled.a`
+  text-decoration: none;
+
+  font-size: 16px;
+  color: #4364a8;
 `;
