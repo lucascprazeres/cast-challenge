@@ -1,11 +1,14 @@
 import React from 'react';
+import Dashboard from './pages/Dashboard';
+import GlobalStyle from './assets/styles/global';
 
-function App() {
+const App: React.FC = () => {
   return (
-    <div className="App">
-      <h1>Hello, Cast</h1>
-    </div>
+    <>
+      <Dashboard />
+      <GlobalStyle />
+    </>
   );
-}
+};
 
 export default App;
