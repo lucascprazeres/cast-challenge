@@ -266,7 +266,7 @@ for manipulating Date objects.
 
 ## How to run?
 
-**make sure you have a postgres database running on port 5432 (default)**
+**make sure you have a postgres database running on port 5432 (default) and create a database called "cast_challenge". Beside, you must insert you database credentials on the ormconfig.json file**
 
 if you use docker, you can find the postgres docker image right [here](https://hub.docker.com/_/postgres)
 
