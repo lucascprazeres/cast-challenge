@@ -7,7 +7,7 @@
 - [Application Flow](#Application-Flow)
 - [Routes](#Routes)
 - [Technologies](#Technologies)
-- [How to run?](#How-to-run?)
+- [How to run?](#How-to-run)
 
 ## Project Architecture
 
@@ -270,7 +270,7 @@ for manipulating Date objects.
 
 if you use docker, you can find the postgres docker image right [here](https://hub.docker.com/_/postgres)
 
-then, is just navigate to the **backend** folder and execute those commands:
+then, just navigate to the **backend** folder and execute those commands:
 
 ```bash
 # download the dependencies
