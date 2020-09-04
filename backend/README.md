@@ -2,13 +2,14 @@
 
 ## Summary
 
-- Project Archtecture
-- Design Patterns
-- Application flow
-- Routes
-- Libraries
+- [Project Architecture](#Project-Architecture)
+- [Design Patterns](#Design-Patterns)
+- [Application Flow](#Application-Flow)
+- [Routes](#Routes)
+- [Technologies](#Technologies)
+- [How to run?](#How-to-run?)
 
-## Project Archtecture
+## Project Architecture
 
 This project differs from the classic mvc pattern and includes more divisions
 that in it`s turn, are more specific
@@ -49,6 +50,8 @@ At each request that is made to the api, this steps are followed
 ![flow.png](../.github/backend-flow.png)
 
 ## Routes
+
+*Note: each of of this routes is preceeded by a baseURL, in this case it is http://localhost:3333*
 
 ### Categories
 
@@ -189,3 +192,96 @@ response:
 url: **/courses/f7b1068c-6340-40c4-a19a-7e3bffd66b49**
 
 response: **status 200, no body**
+
+## Technologies
+
+<details>
+<summary>NodeJS</summary>
+<br>
+This is the JavaScript asynchronous environment that allows us to create backend
+applications using js. It has a really good perfomance and it`s easy to use.
+</details>
+
+<details>
+<summary>TypeScript</summary>
+<br>
+One of the most famous JS supersets. TypeScript allows us to have much more control
+of our development environment since we can define interfaces and types for the abstractions
+used on our code, so we can know exactly all the params, properties or attributes of such elements.
+</details>
+
+<details>
+<summary>Express</summary>
+<br>
+Express is a microframework that allows us to create web servers and defining it's routes
+and middlewares in an really easy and fast way. Beside, it can be intregrated with a lot of
+plugins and features that include security, validation, file upload and much more.
+
+an example of a working web server created on express:
+
+```js
+  import express from 'express';
+
+  const app = express();
+  const port = 3333;
+
+  app.listen(port, () => {
+    console.log("I'm working!");
+  })
+```
+</details>
+
+<details>
+<summary>TypeORM</summary>
+<br>
+It is responsible for the database management in the app. Since it is an ORM (Object-Relational Mapping) it is used to interact with the db implementations using abstractions and not query language.
+TypeORM can make complex queries and relations look easier to understand and execute. However it's
+trade-off is a performance loss, since it generates the queries by itself, which can be avoided
+using the query builder integrated on it. That way we have more control of our queries.
+
+storing a user on db via typeorm:
+
+```js
+  import { getRepository } from 'typeorm';
+  import User from '../models/User';
+
+  const repository = getRepository(User);
+
+  const userData = {
+    name: 'John Doe',
+    email: 'johndoe@email.com',
+  }
+
+  repository.create(userData)
+    .then(user => repository.save(user));
+```
+</details>
+
+<details>
+<summary>date-fns</summary>
+<br>
+date-fns is a js library for date-related operations. It has a set of usefull functions
+for manipulating Date objects.
+</details>
+
+## How to run?
+
+**make sure you have a postgres database running on port 5432 (default)**
+
+if you use docker, you can find the postgres docker image right [here](https://hub.docker.com/_/postgres)
+
+then, is just navigate to the **backend** folder and execute those commands:
+
+```bash
+# download the dependencies
+yarn
+
+# run the api
+yarn dev:server
+```
+
+***
+
+<p align=center>
+  Made with 💜 and Code by <a href="https://www.linkedin.com/in/lucas-prazeres/">Lucas dos Prazeres</a>
+</p>
