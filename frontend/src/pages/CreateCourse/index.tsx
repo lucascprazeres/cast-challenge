@@ -1,5 +1,6 @@
 import React, { useState, useCallback, FormEvent } from 'react';
 import { GoChevronLeft } from 'react-icons/go';
+import { useHistory } from 'react-router-dom';
 import {
   Container,
   Header,
@@ -21,6 +22,8 @@ import {
 import api from '../../services/api';
 
 const CreateCourse: React.FC = () => {
+  const history = useHistory();
+
   const [description, setDesciption] = useState('');
   const [category, setCategory] = useState('');
   const [from, setFrom] = useState('');
@@ -46,8 +49,13 @@ const CreateCourse: React.FC = () => {
       setStudents(0);
 
       await api.post('/courses', course);
+
+      // eslint-disable-next-line no-alert
+      alert('Curso cadastrado com sucesso!');
+
+      history.replace('/');
     },
-    [description, category, from, to, students],
+    [description, category, from, to, students, history],
   );
 
   return (

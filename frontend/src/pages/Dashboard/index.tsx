@@ -52,17 +52,20 @@ const Dashboard: React.FC = () => {
     [search, setSearch, setCourses],
   );
 
-  const handleDeleteCourse = useCallback(async (id: string) => {
-    const selectedCourseIndex = courses.findIndex(course => course.id === id);
+  const handleDeleteCourse = useCallback(
+    async (id: string) => {
+      const selectedCourseIndex = courses.findIndex(course => course.id === id);
 
-    courses.splice(selectedCourseIndex, 1);
+      courses.splice(selectedCourseIndex, 1);
 
-    const updatedCourses = [...courses];
+      const updatedCourses = [...courses];
 
-    setCourses(updatedCourses);
+      setCourses(updatedCourses);
 
-    await api.delete(`/courses/${id}`);
-  }, []);
+      await api.delete(`/courses/${id}`);
+    },
+    [courses],
+  );
 
   return (
     <Container>

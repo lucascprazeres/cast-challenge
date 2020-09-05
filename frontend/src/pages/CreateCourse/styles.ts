@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
+import { shade } from 'polished';
 
 export const Container = styled.div``;
 
@@ -119,5 +120,12 @@ export const Button = styled.button`
   border: 0;
   border-radius: 8px;
   color: #f4ede8;
+  font-size: 16px;
+  font-weight: bold;
   background-color: #4364a8;
+  transition: background-color 0.4s;
+
+  &:hover {
+    background-color: ${() => shade(0.2, '#4364a8')};
+  }
 `;
