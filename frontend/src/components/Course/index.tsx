@@ -1,5 +1,5 @@
 import React from 'react';
-import { GoTrashcan } from 'react-icons/go';
+import { GoTrashcan, GoPencil } from 'react-icons/go';
 
 import { Link } from 'react-router-dom';
 import {
@@ -9,6 +9,7 @@ import {
   CourseFooter,
   StudentNumber,
   Period,
+  CourseOptions,
 } from './styles';
 
 interface CourseProps {
@@ -17,6 +18,7 @@ interface CourseProps {
   start: string;
   end: string;
   to: string;
+  deleteCourse: () => void;
 }
 
 const Course: React.FC<CourseProps> = ({
@@ -25,27 +27,31 @@ const Course: React.FC<CourseProps> = ({
   start,
   end,
   to,
+  deleteCourse,
 }) => {
   return (
     <Container>
-      <Link to={to}>
-        <CourseHeader>
-          <Description>{description}</Description>
+      <CourseHeader>
+        <Description>{description}</Description>
 
-          <GoTrashcan size={16} color="#e0040b" />
-        </CourseHeader>
+        <CourseOptions>
+          <Link to={to}>
+            <GoPencil size={16} color="#4364a8" onClick={deleteCourse} />
+          </Link>
+          <GoTrashcan size={16} color="#e0040b" onClick={deleteCourse} />
+        </CourseOptions>
+      </CourseHeader>
 
-        <CourseFooter>
-          <StudentNumber>
-            Alunos por turma:
-            <strong>{students || 'não informado'}</strong>
-          </StudentNumber>
+      <CourseFooter>
+        <StudentNumber>
+          Alunos por turma:
+          <strong>{students || 'não informado'}</strong>
+        </StudentNumber>
 
-          <Period>
-            {start} - {end}
-          </Period>
-        </CourseFooter>
-      </Link>
+        <Period>
+          {start} - {end}
+        </Period>
+      </CourseFooter>
     </Container>
   );
 };

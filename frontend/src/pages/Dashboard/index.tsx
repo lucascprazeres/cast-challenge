@@ -52,6 +52,18 @@ const Dashboard: React.FC = () => {
     [search, setSearch, setCourses],
   );
 
+  const handleDeleteCourse = useCallback(async (id: string) => {
+    const selectedCourseIndex = courses.findIndex(course => course.id === id);
+
+    courses.splice(selectedCourseIndex, 1);
+
+    const updatedCourses = [...courses];
+
+    setCourses(updatedCourses);
+
+    await api.delete(`/courses/${id}`);
+  }, []);
+
   return (
     <Container>
       <Header>
@@ -90,6 +102,7 @@ const Dashboard: React.FC = () => {
               start="12/09"
               end="14/09"
               to={`update-course/${course.id}`}
+              deleteCourse={() => handleDeleteCourse(course.id)}
             />
           ))}
         </CourseList>

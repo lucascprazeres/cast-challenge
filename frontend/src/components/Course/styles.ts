@@ -27,6 +27,13 @@ export const CourseHeader = styled.div`
   margin-bottom: 32px;
 `;
 
+export const CourseOptions = styled.div`
+  > svg {
+    margin-left: 8px;
+    cursor: pointer;
+  }
+`;
+
 export const CourseFooter = styled.div`
   display: flex;
   justify-content: space-between;
