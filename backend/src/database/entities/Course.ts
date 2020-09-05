@@ -4,7 +4,10 @@ import {
   Column,
   CreateDateColumn,
   UpdateDateColumn,
+  JoinColumn,
+  ManyToOne,
 } from 'typeorm';
+import Category from './Category';
 
 @Entity('courses')
 export default class Course {
@@ -22,6 +25,10 @@ export default class Course {
 
   @Column('integer')
   category_code: number;
+
+  @ManyToOne(() => Category, category => category.code)
+  @JoinColumn({ name: 'category_code' })
+  category: Category;
 
   @Column('integer')
   students_per_class: number;

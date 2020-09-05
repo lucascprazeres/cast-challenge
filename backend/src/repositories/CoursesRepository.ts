@@ -5,6 +5,7 @@ import {
   MoreThanOrEqual,
   Like,
 } from 'typeorm';
+
 import Course from '../database/entities/Course';
 
 interface CreateCourseDTO {
@@ -46,7 +47,9 @@ export default class CoursesRepository {
   }
 
   public async findById(id: string): Promise<Course | undefined> {
-    const course = await this.ormRepository.findOne(id);
+    const course = await this.ormRepository.findOne(id, {
+      relations: ['category'],
+    });
 
     return course;
   }
