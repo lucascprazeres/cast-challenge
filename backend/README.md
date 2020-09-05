@@ -276,6 +276,10 @@ then, just navigate to the **backend** folder and execute those commands:
 # download the dependencies
 yarn
 
+# run migrations
+
+yarn typeorm migration:run
+
 # run the api
 yarn dev:server
 ```

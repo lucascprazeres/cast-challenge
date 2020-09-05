@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useCallback, FormEvent } from 'react';
 import { GoChevronLeft } from 'react-icons/go';
 import {
   Container,
@@ -18,8 +18,38 @@ import {
   NumberInputBlock,
   NumberInput,
 } from './styles';
+import api from '../../services/api';
 
 const CreateCourse: React.FC = () => {
+  const [description, setDesciption] = useState('');
+  const [category, setCategory] = useState('');
+  const [from, setFrom] = useState('');
+  const [to, setTo] = useState('');
+  const [students, setStudents] = useState(0);
+
+  const handleSubmit = useCallback(
+    async (event: FormEvent) => {
+      event.preventDefault();
+
+      const course = {
+        description,
+        category,
+        from,
+        to,
+        students_per_class: students,
+      };
+
+      setDesciption('');
+      setCategory('');
+      setFrom('');
+      setTo('');
+      setStudents(0);
+
+      await api.post('/courses', course);
+    },
+    [description, category, from, to, students],
+  );
+
   return (
     <Container>
       <Header>
@@ -32,34 +62,55 @@ const CreateCourse: React.FC = () => {
       </Header>
 
       <Content>
-        <Form>
+        <Form onSubmit={handleSubmit}>
           <InputBlock>
             <Label htmlFor="description">nome do curso</Label>
-            <Input name="description" />
+            <Input
+              name="description"
+              value={description}
+              onChange={e => setDesciption(e.target.value)}
+            />
           </InputBlock>
 
           <InputBlock>
             <Label htmlFor="category">categoria</Label>
-            <Input name="category" />
+            <Input
+              name="category"
+              value={category}
+              onChange={e => setCategory(e.target.value)}
+            />
           </InputBlock>
 
           <DateInputGroup>
             <DateInputBlock>
               <Label htmlFor="from">inicio</Label>
-              <DateInput name="from" type="date" />
+              <DateInput
+                type="date"
+                name="from"
+                value={from}
+                onChange={e => setFrom(e.target.value)}
+              />
             </DateInputBlock>
 
             <DateInputBlock>
               <Label htmlFor="to">fim</Label>
-              <DateInput name="to" type="date" />
+              <DateInput
+                type="date"
+                name="to"
+                value={to}
+                onChange={e => setTo(e.target.value)}
+              />
             </DateInputBlock>
           </DateInputGroup>
 
           <NumberInputBlock>
-            <Label htmlFor="students_per_class">
-              Vagas por turma (opcional)
-            </Label>
-            <NumberInput type="number" name="students_per_class" />
+            <Label htmlFor="students">Vagas por turma (opcional)</Label>
+            <NumberInput
+              type="number"
+              name="students"
+              value={students}
+              onChange={e => setStudents(Number(e.target.value))}
+            />
           </NumberInputBlock>
 
           <Button>criar curso</Button>
