@@ -3,7 +3,6 @@ import React, { useState, useCallback, FormEvent } from 'react';
 import { GiBoomerang } from 'react-icons/gi';
 
 import { GoChevronRight } from 'react-icons/go';
-import { useHistory } from 'react-router-dom';
 import {
   Container,
   Header,
@@ -36,8 +35,6 @@ const Dashboard: React.FC = () => {
   const [search, setSearch] = useState('');
   const [courses, setCourses] = useState<Course[]>([]);
 
-  const history = useHistory();
-
   const handleSubmit = useCallback(
     async (e: FormEvent) => {
       e.preventDefault();
@@ -53,14 +50,6 @@ const Dashboard: React.FC = () => {
       setCourses(response.data);
     },
     [search, setSearch, setCourses],
-  );
-
-  const handleNavigateToUpdateCourse = useCallback(
-    (course_id: string) => {
-      console.log('sdishdhuh');
-      history.push('/update-course', { course_id });
-    },
-    [history],
   );
 
   return (
