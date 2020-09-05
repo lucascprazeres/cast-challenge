@@ -57,7 +57,8 @@ export default class CoursesRepository {
   }: FindbyPeriodDTO): Promise<Course | undefined> {
     const course = await this.ormRepository.findOne({
       where: {
-        from: MoreThanOrEqual(from) && LessThanOrEqual(to),
+        from: LessThanOrEqual(to),
+        to: MoreThanOrEqual(from),
       },
     });
 
