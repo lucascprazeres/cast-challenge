@@ -23,7 +23,7 @@ import {
 import Course from '../../components/Course';
 import api from '../../services/api';
 
-interface Course {
+export interface Course {
   id: string;
   description: string;
   from: Date;

@@ -36,7 +36,7 @@ const Course: React.FC<CourseProps> = ({
 
         <CourseOptions>
           <Link to={to}>
-            <GoPencil size={16} color="#4364a8" onClick={deleteCourse} />
+            <GoPencil size={16} color="#4364a8" />
           </Link>
           <GoTrashcan size={16} color="#e0040b" onClick={deleteCourse} />
         </CourseOptions>
