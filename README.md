@@ -9,7 +9,7 @@ If you want to see it's implementation and it's architetural and design choices,
 ## 🧭 Index
 
 - [Backend](./backend)
-- Frontend (not implemented yet...)
+- [Frotend](./frontend)
 
 ## 🔍 General Requirements
 
