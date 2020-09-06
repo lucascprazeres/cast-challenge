@@ -1,6 +1,7 @@
-import React, { useState, useCallback, FormEvent } from 'react';
+import React, { useState, useCallback, FormEvent, useEffect } from 'react';
 import { GoChevronLeft } from 'react-icons/go';
 import { useHistory } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
 import {
   Container,
   Header,
@@ -20,6 +21,9 @@ import {
   NumberInput,
 } from './styles';
 import api from '../../services/api';
+import { State } from '../../store';
+import { CourseState } from '../../store/modules/course/types';
+import { saveCourseDraft } from '../../store/modules/course/actions';
 
 const CreateCourse: React.FC = () => {
   const history = useHistory();
@@ -29,6 +33,33 @@ const CreateCourse: React.FC = () => {
   const [from, setFrom] = useState('');
   const [to, setTo] = useState('');
   const [students, setStudents] = useState(0);
+
+  const dispatch = useDispatch();
+
+  const currentCourseState = useSelector<State, CourseState>(
+    state => state.course,
+  );
+
+  // loads then courseDraft
+  useEffect(() => {
+    setDesciption(currentCourseState.description);
+    setCategory(currentCourseState.category);
+    setFrom(currentCourseState.from);
+    setTo(currentCourseState.to);
+    setStudents(currentCourseState.students_per_class);
+  }, [currentCourseState]);
+
+  const handleSaveDraft = useCallback(() => {
+    const draft = {
+      description,
+      category,
+      from,
+      to,
+      students_per_class: students,
+    };
+
+    dispatch(saveCourseDraft(draft));
+  }, [dispatch, description, category, from, to, students]);
 
   const handleSubmit = useCallback(
     async (event: FormEvent) => {
@@ -41,12 +72,6 @@ const CreateCourse: React.FC = () => {
         to,
         students_per_class: students,
       };
-
-      setDesciption('');
-      setCategory('');
-      setFrom('');
-      setTo('');
-      setStudents(0);
 
       await api.post('/courses', course);
 
@@ -63,7 +88,9 @@ const CreateCourse: React.FC = () => {
       <Header>
         <BackButtonContainer>
           <GoChevronLeft size={16} color="#4364a8" />
-          <BackButton to="/">voltar</BackButton>
+          <BackButton to="/" onClick={handleSaveDraft}>
+            voltar
+          </BackButton>
         </BackButtonContainer>
 
         <Title>Cadastre um novo curso</Title>
