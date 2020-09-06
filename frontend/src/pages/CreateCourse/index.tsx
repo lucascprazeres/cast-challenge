@@ -23,7 +23,10 @@ import {
 import api from '../../services/api';
 import { State } from '../../store';
 import { CourseState } from '../../store/modules/course/types';
-import { saveCourseDraft } from '../../store/modules/course/actions';
+import {
+  saveCourseDraft,
+  createCourseRequest,
+} from '../../store/modules/course/actions';
 
 const CreateCourse: React.FC = () => {
   const history = useHistory();
@@ -73,14 +76,11 @@ const CreateCourse: React.FC = () => {
         students_per_class: students,
       };
 
-      await api.post('/courses', course);
-
-      // eslint-disable-next-line no-alert
-      alert('Curso cadastrado com sucesso!');
+      dispatch(createCourseRequest(course));
 
       history.replace('/');
     },
-    [description, category, from, to, students, history],
+    [description, category, from, to, students, history, dispatch],
   );
 
   return (

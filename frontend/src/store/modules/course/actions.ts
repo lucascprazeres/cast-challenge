@@ -8,3 +8,12 @@ export function saveCourseDraft(course: CourseState) {
     },
   };
 }
+
+export function createCourseRequest(course: CourseState) {
+  return {
+    type: 'CREATE_COURSE',
+    payload: {
+      course,
+    },
+  };
+}
