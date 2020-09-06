@@ -51,15 +51,6 @@ export default class UpdateCourseService {
     const parsedStartDate = parseISO(from);
     const parsedEndDate = parseISO(to);
 
-    const todaysFirstHour = startOfDay(Date.now());
-
-    if (isBefore(parsedStartDate, todaysFirstHour)) {
-      throw new AppError(
-        'Não é possivel agendar um curso em uma data passada.',
-        400,
-      );
-    }
-
     if (isBefore(parsedEndDate, parsedStartDate)) {
       throw new AppError(
         'Data de término do curso deve ser posterior ao seu início.',
