@@ -4,6 +4,7 @@ import { useHistory } from 'react-router-dom';
 
 import { format } from 'date-fns';
 
+import { useDispatch } from 'react-redux';
 import {
   Container,
   Header,
@@ -23,6 +24,7 @@ import {
   NumberInput,
 } from './styles';
 import api from '../../services/api';
+import { updateCourseRequest } from '../../store/modules/course/actions';
 
 interface Props {
   match: {
@@ -32,11 +34,11 @@ interface Props {
   };
 }
 
-interface Course {
+export interface Course {
   id: string;
   description: string;
-  from: Date;
-  to: Date;
+  from: string;
+  to: string;
   students_per_class: number | null;
   category: {
     description: string;
@@ -45,6 +47,8 @@ interface Course {
 
 const UpdateCourse: React.FC<Props> = ({ match }) => {
   const history = useHistory();
+
+  const dispatch = useDispatch();
 
   const [description, setDesciption] = useState('');
   const [category, setCategory] = useState('');
@@ -75,7 +79,10 @@ const UpdateCourse: React.FC<Props> = ({ match }) => {
     async (event: FormEvent) => {
       event.preventDefault();
 
+      const courseId = match.params.id;
+
       const updatedCourse = {
+        id: courseId,
         description,
         category,
         from,
@@ -83,22 +90,20 @@ const UpdateCourse: React.FC<Props> = ({ match }) => {
         students_per_class: students,
       };
 
-      setDesciption('');
-      setCategory('');
-      setFrom('');
-      setTo('');
-      setStudents(0);
-
-      const courseId = match.params.id;
-
-      await api.put(`/courses/${courseId}`, updatedCourse);
-
-      // eslint-disable-next-line no-alert
-      alert('Curso atualizado com sucesso!');
+      dispatch(updateCourseRequest(updatedCourse));
 
       history.replace('/');
     },
-    [description, category, from, to, students, history, match.params.id],
+    [
+      description,
+      category,
+      from,
+      to,
+      students,
+      history,
+      match.params.id,
+      dispatch,
+    ],
   );
 
   return (
@@ -164,7 +169,7 @@ const UpdateCourse: React.FC<Props> = ({ match }) => {
             />
           </NumberInputBlock>
 
-          <Button>criar curso</Button>
+          <Button>Atualizar</Button>
         </Form>
       </Content>
     </Container>

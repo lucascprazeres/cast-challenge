@@ -1,11 +1,12 @@
 import { call, all, takeLatest } from 'redux-saga/effects';
 import api from '../../../services/api';
 
-import { createCourseRequest } from './actions';
+import { createCourseRequest, updateCourseRequest } from './actions';
 
-type CreateProductRequest = ReturnType<typeof createCourseRequest>;
+type CreateCoursesRequest = ReturnType<typeof createCourseRequest>;
+type UpdateCourseRequest = ReturnType<typeof updateCourseRequest>;
 
-export function* createCourse({ payload }: CreateProductRequest) {
+export function* createCourse({ payload }: CreateCoursesRequest) {
   try {
     const {
       category,
@@ -32,4 +33,36 @@ export function* createCourse({ payload }: CreateProductRequest) {
   }
 }
 
-export default all([takeLatest('CREATE_COURSE', createCourse)]);
+export function* updateCourse({ payload }: UpdateCourseRequest) {
+  try {
+    const {
+      id,
+      category,
+      description,
+      from,
+      to,
+      students_per_class,
+    } = payload.course;
+
+    const course = {
+      id,
+      category,
+      description,
+      from,
+      to,
+      students_per_class,
+    };
+
+    yield call(api.put, `/courses/${id}`, course);
+
+    // eslint-disable-next-line no-alert
+    alert('Curso atualizado com sucesso!');
+  } catch (err) {
+    alert('Houve um erro ao atualizar o curso, tente novamente.');
+  }
+}
+
+export default all([
+  takeLatest('CREATE_COURSE', createCourse),
+  takeLatest('UPDATE_COURSE', updateCourse),
+]);

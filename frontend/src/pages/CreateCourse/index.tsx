@@ -20,7 +20,6 @@ import {
   NumberInputBlock,
   NumberInput,
 } from './styles';
-import api from '../../services/api';
 import { State } from '../../store';
 import { CourseState } from '../../store/modules/course/types';
 import {
