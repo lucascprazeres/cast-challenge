@@ -27,6 +27,20 @@ At each request that is made to the api, this steps are followed
 
 ![flow.png](../.github/frontend-flow.png)
 
+## Features
+
+- Create new Courses
+- Search courses by description
+- Update existing courses
+- Delete courses
+
+## Actions
+
+- saveCourseDraft: saves a non submited creation form state even if user leaves the page
+- clearCourseDraft: delete this state if the form is submitted
+- createCourseRequest: triggers a saga that calls the api and creates the resource
+- updateCourseRequest: triggers a saga that calls the api and updates the resource
+
 ## Technologies
 
 <details>
