@@ -13,6 +13,12 @@ export function saveCourseDraft(course: CourseState) {
   };
 }
 
+export function clearCourseDraft() {
+  return {
+    type: 'CLEAR_COURSE_DRAFT',
+  };
+}
+
 export function createCourseRequest(course: CourseState) {
   return {
     type: 'CREATE_COURSE',

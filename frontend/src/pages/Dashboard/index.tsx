@@ -3,6 +3,7 @@ import React, { useState, useCallback, FormEvent } from 'react';
 import { GiBoomerang } from 'react-icons/gi';
 
 import { GoChevronRight } from 'react-icons/go';
+
 import {
   Container,
   Header,
@@ -102,8 +103,8 @@ const Dashboard: React.FC = () => {
               key={course.id}
               description={course.description}
               students={course.students_per_class}
-              start="12/09"
-              end="14/09"
+              start={new Date(course.from)}
+              end={new Date(course.to)}
               to={`update-course/${course.id}`}
               deleteCourse={() => handleDeleteCourse(course.id)}
             />

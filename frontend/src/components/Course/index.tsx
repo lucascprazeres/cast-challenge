@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { GoTrashcan, GoPencil } from 'react-icons/go';
 
 import { Link } from 'react-router-dom';
+import { format } from 'date-fns';
+
 import {
   Container,
   Description,
@@ -15,8 +17,8 @@ import {
 interface CourseProps {
   description: string;
   students: number | null;
-  start: string;
-  end: string;
+  start: Date;
+  end: Date;
   to: string;
   deleteCourse: () => void;
 }
@@ -29,6 +31,14 @@ const Course: React.FC<CourseProps> = ({
   to,
   deleteCourse,
 }) => {
+  const parsedStartDate = useMemo(() => {
+    return format(start, 'MM/dd');
+  }, [start]);
+
+  const parsedEndDate = useMemo(() => {
+    return format(end, 'MM/dd');
+  }, [end]);
+
   return (
     <Container>
       <CourseHeader>
@@ -49,7 +59,7 @@ const Course: React.FC<CourseProps> = ({
         </StudentNumber>
 
         <Period>
-          {start} - {end}
+          {parsedStartDate} - {parsedEndDate}
         </Period>
       </CourseFooter>
     </Container>

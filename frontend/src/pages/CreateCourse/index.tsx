@@ -25,6 +25,7 @@ import { CourseState } from '../../store/modules/course/types';
 import {
   saveCourseDraft,
   createCourseRequest,
+  clearCourseDraft,
 } from '../../store/modules/course/actions';
 
 const CreateCourse: React.FC = () => {
@@ -76,6 +77,7 @@ const CreateCourse: React.FC = () => {
       };
 
       dispatch(createCourseRequest(course));
+      dispatch(clearCourseDraft());
 
       history.replace('/');
     },

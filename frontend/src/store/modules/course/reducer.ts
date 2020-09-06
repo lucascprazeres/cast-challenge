@@ -21,6 +21,16 @@ const course: Reducer<CourseState> = (state = INITIAL_STATE, action) => {
         return draft;
       }
 
+      case 'CLEAR_COURSE_DRAFT': {
+        draft.category = '';
+        draft.description = '';
+        draft.from = '';
+        draft.to = '';
+        draft.students_per_class = 0;
+
+        return draft;
+      }
+
       default: {
         return draft;
       }
