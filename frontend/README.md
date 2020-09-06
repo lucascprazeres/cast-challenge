@@ -1,44 +1,93 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# REST API
 
-## Available Scripts
+## Preview
 
-In the project directory, you can run:
+<img src="../.github/crud.gif"/>
 
-### `yarn start`
+## Summary
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+- [Project Architecture](#Project-Architecture)
+- [Application Flow](#Application-Flow)
+- [Technologies](#Technologies)
+- [How to run?](#How-to-run)
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+## Project Architecture
 
-### `yarn test`
+    |- src    # here goes the whole development code
+        |--- assets            # contains the global style definition
+        |--- components        # small and independent unities of logic, html and css
+        |--- pages             # bigger components that contain a whole web page
+        |--- Routes            # a component responsible for renderig the pages based on the url
+        |--- services          # external services, such as the api connection
+        |--- store             # contains the logic of global state management using redux
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Application flow
 
-### `yarn build`
+At each request that is made to the api, this steps are followed
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+![flow.png](../.github/frontend-flow.png)
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+## Technologies
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+<details>
+<summary>ReactJS</summary>
+<br>
+A JavaScript framework based on components that allows us to create modern, fast
+and clean web interfaces.
+</details>
 
-### `yarn eject`
+<details>
+<summary>TypeScript</summary>
+<br>
+One of the most famous JS supersets. TypeScript allows us to have much more control
+of our development environment since we can define interfaces and types for the abstractions
+used on our code, so we can know exactly all the params, properties or attributes of such elements.
+</details>
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+<details>
+<summary>axios</summary>
+<br>
+This library is used for creating simple asynchronous http requests on this app.
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+</details>
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+<details>
+<summary>Redux</summary>
+<br>
+This is one of the most famous state managers of all React's ecossytem and can be used
+to share information between isolated components on a performatic way.
 
-## Learn More
+</details>
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+<details>
+<summary>Redux Saga</summary>
+<br>
+It's a middleware library responsible for making asynchronous tasks, like api calls,
+on a redux application
+</details>
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+<details>
+<summary>date-fns</summary>
+<br>
+date-fns is a js library for date-related operations. It has a set of usefull functions
+for manipulating Date objects.
+</details>
+
+## How to run?
+
+**make sure your backend is running before you run this commands**
+
+```bash
+# download the dependencies
+yarn
+
+# run the app
+yarn start
+```
+
+***
+
+<p align=center>
+  Made with 💜 and Code by <a href="https://www.linkedin.com/in/lucas-prazeres/">Lucas dos Prazeres</a>
+</p>
